@@ -4,7 +4,7 @@
       <div class="nav-wrapper">
         <div class="navbar-left">
           <a href="#" class="brand-logo" @click.prevent="$emit('open_close_click')">
-            <i class="material-icons">dehaze</i>
+            <i class="material-icons" >dehaze</i>
           </a>
           <span style="padding-left: 3rem;">{{ my_date | date('datetime')}}</span>
         </div>
@@ -16,15 +16,16 @@
               id="dropdown_triger"
               class="dropdown-trigger dropdown_custom"
               data-target="dropdown1"
+              
             >
-              <span class="name_dropdown" style="text-transform: uppercase;">Карина Грозь</span>
-              <i ref="icon_user" class="large material-icons user_name_icon">expand_more</i>
+              <span class="name_dropdown" style="text-transform: uppercase;"> {{ info.name }} </span>
+              <i ref="icon_user"  class="large material-icons user_name_icon">expand_more</i>
             </a>
 
-            <ul id="dropdown1" class="dropdown-content">
+            <ul id="dropdown1" style="min-width:150px;" class="dropdown-content">
               <li class="drop_element">
                 <router-link to="/profile">
-                  <i class="material-icons">insert_emoticon</i>
+                  <i   class="material-icons">insert_emoticon</i>
                   <span>Профиль</span>
                 </router-link>
               </li>
@@ -44,8 +45,11 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
+  computed: {
+    ...mapGetters(['info'])
+  },
   data() {
     return {
       my_date: new Date(),
@@ -132,7 +136,7 @@ export default {
   }
   @media screen and (max-width: 992px) {
     .brand-logo {
-      left: 10%;
+      left: 3rem;
     }
   }
 }

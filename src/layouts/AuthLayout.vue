@@ -23,7 +23,19 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters, mapActions } from "vuex";
+import messages from "@/utils/message.keys";
+export default {
+  computed: {
+    ...mapGetters(["error"])
+  },
+  watch: {
+    error(e) {
+      console.log(e);
+      this.$error(messages[e.code] || "что-то пошло не так");
+    }
+  },
+};
 </script>
 
 <style lang="scss">
@@ -62,10 +74,11 @@ export default {};
     i {
       right: -5px !important;
     }
-    .valid_icon{
-      color: #4CAF50 ;
+    .valid_icon {
+      color: #4caf50;
     }
-    .invalid_icon, .invalid_icon.active{
+    .invalid_icon,
+    .invalid_icon.active {
       color: red;
     }
     label {
@@ -86,10 +99,6 @@ export default {};
       .card-content {
         padding-bottom: 0;
       }
-    }
-    .invalid_msg_class {
-      margin-left: 0 !important;
-      color: red !important;
     }
     @media screen and (max-width: 992px) {
       .card {

@@ -5,24 +5,26 @@ export default {
       try {
         await firebase.auth().signInWithEmailAndPassword(email, password)
       } catch (err) {
-        console.log(err + ' ошибка в логине')
+        commit('setError', err)
         throw err
       }
     },
-    async logaut() {
+    async logaut({commit}) {
       await firebase.auth().signOut()
+      commit('cleare_info_state')
     },
     async register({ commit, dispatch }, { email, password, name }) {
       try {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
         const uid = await dispatch('getUid')
         await firebase.database().ref(`/users/${uid}/info`).set({
-          bill: 0,
+          bill: 5600,
           name
         })
 
       } catch (err) {
-        
+        commit('setError', err)
+        throw err
       }
     },
     getUid() {

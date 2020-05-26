@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import messagePlugin from './utils/message.plugin'
+import Loader from './components/app/Loader.vue'
 import './registerServiceWorker'
 
 import '../node_modules/materialize-css/dist/js/materialize'
@@ -14,8 +15,11 @@ import 'firebase/auth'
 import 'firebase/database'
 // import 'firebase/analytics'
 
+Vue.component('Loader', Loader)
+
 import dateFilter from './filters/date.filter'
 Vue.filter('date', dateFilter)
+
 Vue.use(messagePlugin)
 Vue.use(Vuelidate)
 
@@ -39,7 +43,7 @@ let app
 
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
-    new Vue({
+    app = new Vue({
       router,
       store,
       render: h => h(App)
