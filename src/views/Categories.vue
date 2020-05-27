@@ -3,17 +3,14 @@
     <div class="page_title_app">
       <span class="text">Категории</span>
     </div>
-    <div class="row">
+    <Loader v-if="loading" />
+    <div class="row" v-else>
       <div class="col s12 m6">
         <CategoryCreate @create_category="addNewCategory" />
       </div>
 
-      <div class="col s12 m6">
-        <div class="card">
-          <div
-            class="card-content"
-          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptas impedit quidem ratione labore magnam nulla quos fugiat non. Veniam sint explicabo fugit maxime ipsam quod, nulla tempora voluptas atque.</div>
-        </div>
+      <div class="col s12 m6" v-if="categories.length">
+        <CategoryUpdate :key="categories.length + number_m" @update_category="update_category" :categories="categories" />
       </div>
     </div>
   </div>
@@ -21,20 +18,35 @@
 
 <script>
 import CategoryCreate from "../components/CategoriesCreate";
+import CategoryUpdate from "../components/CategoriesUpdate";
 export default {
+  name: "Category",
+  async mounted() {
+    try {
+      this.categories = await this.$store.dispatch("fetch_all_categories");
+      console.log(this.categories);
+      this.loading = false;
+    } catch (e) {}
+  },
   data() {
     return {
-      categories: []
-    }
+      categories: [],
+      loading: true,
+      number_m: 0
+    };
   },
-  name: "Category",
-  components: { CategoryCreate },
+  components: { CategoryCreate, CategoryUpdate },
   methods: {
     addNewCategory(cat) {
-      this.categories.push(cat)
-      console.log(this.categories)
+      this.categories.push(cat);
+    },
+    update_category(val) {
+      const idx = this.categories.findIndex(c => c.id === val.id);
+      this.categories[idx].title = val.title;
+      this.categories[idx].limit = val.limit;
+      this.number_m++
     }
-  },
+  }
 };
 </script>
 
