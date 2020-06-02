@@ -64,7 +64,7 @@ export default {
   methods: {
    async  remove_record(){
      try {
-       await this.$store.dispatch('delete_record_by_id', this.my_record.id)
+       await this.$store.dispatch('delete_record_by_id', this.my_record)
        this.$router.push('/history')
      } catch (e) {
        
@@ -87,7 +87,6 @@ export default {
         button_class: record.type === "income" ? "income" : "outcome",
         type_text: record.type === "income" ? "Доход" : "Расход"
       };
-      console.log(this.record);
     } catch (e) {}
   }
 };

@@ -44,11 +44,9 @@ export default {
     ...mapActions(["fetchInformation"])
   },
   mounted() {
-    if (!Object.keys(this.info).length) {
-      this.fetchInformation()
-        .then(() => {})
-        .catch(() => {});
-    }
+    this.fetchInformation()
+      .then(() => {})
+      .catch(() => {});
   },
   components: { NavBar, SideBar }
 };

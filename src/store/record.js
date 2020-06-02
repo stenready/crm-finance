@@ -22,10 +22,16 @@ export default {
         throw e
       }
     },
-    async delete_record_by_id({ commit, dispatch }, id) {
+    async delete_record_by_id({ commit, dispatch, getters }, record) {
       try {
         const uid=await dispatch('getUid')
-        const one_record= await firebase.database().ref(`/users/${uid}/records`).child(id).remove()
+        await firebase.database().ref(`/users/${uid}/records`).child(record.id).remove()
+        let sum = 0
+        if (record.type==="income") sum+=record.amount
+        if (record.type==="outcome") sum-=record.amount
+        const bill = getters.info.bill - sum
+        await dispatch('update_info', { bill })
+
       } catch (e) {
         commit('setError', e)
         throw e
