@@ -53,6 +53,7 @@
             class="waves-effect waves-light btn-small"
           >Изменить</button>
           <button
+            v-tooltipe=" `удаление категории и всех связанных с ней записей` "
             @click="delete_category"
             type="button"
             class="waves-effect waves-light btn-small"

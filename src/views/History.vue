@@ -6,6 +6,8 @@
 
     <Loader v-if="loading" />
 
+    <span v-else-if="!records.length">Записей еще нет</span>
+
     <span v-else>
       <div class="history_chart">
         <canvas></canvas>

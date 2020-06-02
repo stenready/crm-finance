@@ -53,6 +53,16 @@ export default {
         commit('setError', e)
         throw e
       }
+    },
+    async fetch_category_by_id({ commit, dispatch }, id) {
+      try {
+        const uid=await dispatch('getUid')
+        const category=(await firebase.database().ref(`/users/${uid}/categories`).child(id).once('value')).val()||{}
+        return { ...category, id }
+      } catch (e) {
+        commit('setError', e)
+        throw e
+      }
     }
   },
   mutations: {}

@@ -16,15 +16,26 @@ export default {
       try {
         const uid=await dispatch('getUid')
         const r=(await firebase.database().ref(`/users/${uid}/records`).once('value')).val()||{}
-        return Object.keys(r).map( key => ({...r[key], id: key}) )
+        return Object.keys(r).map(key => ({ ...r[key], id: key }))
       } catch (e) {
         commit('setError', e)
         throw e
       }
     },
-    async delete_records_by_id_category(){
+    async delete_record_by_id({ commit, dispatch }, id) {
       console.log('object');
-    }
+    },
+    async fetch_record_by_id({ commit, dispatch }, id) {
+      try {
+        const uid=await dispatch('getUid')
+        const one_record=(await firebase.database().ref(`/users/${uid}/records`).child(id).once('value')).val()||{}
+        return { ...one_record, id }
+      } catch (e) {
+        commit('setError', e)
+        throw e
+      }
+    },
+
   },
   getters: {},
   mutations: {}
