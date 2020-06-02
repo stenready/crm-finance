@@ -3,6 +3,7 @@
     <Loader v-if="loading" />
 
     <div v-else>
+      <ModalRemove :modal_details="modal_details" @delete_elem="remove_record"  />
       <div class="nav-wrapper">
         <div>
           <router-link tag="a" to="/history" class="breadcrumb">История</router-link>
@@ -39,9 +40,9 @@
                 >Изменить</button>
                 <button
                   type="button"
-                  class="waves-effect waves-light btn-small"
+                  :data-target="modal_details.id"
+                  class="waves-effect waves-light btn-small modal-trigger"
                   :class="[my_record.button_class]"
-                  @click="remove_record"
                 >Удалить</button>
               </div>
             </div>
@@ -53,22 +54,26 @@
 </template>
 
 <script>
+import ModalRemove from "../components/DetailRemoveModal";
 export default {
   name: "one_detail",
   data() {
     return {
       my_record: null,
-      loading: true
+      loading: true,
+      modal_details: {
+        id: (new Date()).toString(),
+        title: 'Удаление',
+        text: 'Вы уверенны что хотите удалить данный елемент?'
+      },
     };
   },
   methods: {
-   async  remove_record(){
-     try {
-       await this.$store.dispatch('delete_record_by_id', this.my_record)
-       this.$router.push('/history')
-     } catch (e) {
-       
-     }
+    async remove_record() {
+      try {
+        await this.$store.dispatch("delete_record_by_id", this.my_record);
+        this.$router.push("/history");
+      } catch (e) {}
     }
   },
   async mounted() {
@@ -88,13 +93,16 @@ export default {
         type_text: record.type === "income" ? "Доход" : "Расход"
       };
     } catch (e) {}
+  },
+  components: {
+    ModalRemove
   }
 };
 </script>
 
 <style lang="scss">
 .detail {
-  p{
+  p {
     margin: 0.5rem 0 !important;
   }
   .title_detail {
