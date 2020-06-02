@@ -39,7 +39,7 @@
               <input
                 :class="{ 'invalid': $v.amount.$error, 'valid': !$v.amount.$invalid }"
                 id="amount"
-                type="text"
+                type="number"
                 v-model.number="amount"
               />
               <label for="title_categories_update">Сумма</label>

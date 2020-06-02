@@ -23,6 +23,7 @@
 import NavBar from "../components/app/NavBar";
 import SideBar from "../components/app/SideBar";
 import { mapActions, mapGetters } from "vuex";
+import messages from "@/utils/message.keys";
 export default {
   name: "mein-layout",
   data() {
@@ -31,7 +32,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["info"])
+    ...mapGetters(["info", "error"])
+  },
+  watch: {
+    error(e) {
+      console.log(e);
+      this.$error(messages[e.code] || "что-то пошло не так");
+    }
   },
   methods: {
     ...mapActions(["fetchInformation"])
@@ -55,7 +62,7 @@ export default {
   .app-content {
     display: flex !important;
     justify-content: flex-end !important;
-   .app-page.full {
+    .app-page.full {
       width: calc(100%) !important;
       padding: 0 2rem !important;
       transition: width 0.5s ease-in !important;

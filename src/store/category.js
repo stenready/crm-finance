@@ -23,7 +23,6 @@ export default {
     },
     async add_category({ commit, dispatch }, { title, limit }) {
       try {
-        // console.log(title, limit)
         const uid=await dispatch('getUid')
         const category=await firebase.database().ref(`/users/${uid}/categories`).push({ title, limit })
         return { title, limit, id: category.key }
@@ -36,6 +35,20 @@ export default {
       try {
         const uid=await dispatch('getUid')
         const category=await firebase.database().ref(`/users/${uid}/categories`).child(id).update({ title, limit })
+      } catch (e) {
+        commit('setError', e)
+        throw e
+      }
+    },
+    async delete_category({ commit, dispatch }, {id}) {
+      try {
+        const uid=await dispatch('getUid')
+        const category=await firebase.database().ref(`/users/${uid}/categories`).child(id).remove()
+        const records = await dispatch('fetch_all_records')
+        
+        const res = records.map( async (rec) => {
+          if( rec.categoryId === id ) await firebase.database().ref(`/users/${uid}/records`).child(rec.id).remove()
+        } )
       } catch (e) {
         commit('setError', e)
         throw e

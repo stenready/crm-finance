@@ -48,10 +48,15 @@
           </div>
 
           <button
-            style="width: 100%;"
+            style="margin-right: 1rem"
             type="submit"
             class="waves-effect waves-light btn-small"
           >Изменить</button>
+          <button
+            @click="delete_category"
+            type="button"
+            class="waves-effect waves-light btn-small"
+          >Удалить</button>
         </form>
       </div>
     </div>
@@ -85,6 +90,10 @@ export default {
     }
   },
   methods: {
+    async delete_category(){
+      const res = await this.$store.dispatch('delete_category', {id: this.current})
+      this.$emit('delete_category', this.current)
+    },
     async updateCategoryHandler() {
       if (!!this.$v.$invalid) {
         this.$v.$touch();

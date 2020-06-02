@@ -7,6 +7,8 @@ import messagePlugin from './utils/message.plugin'
 import Loader from './components/app/Loader.vue'
 import './registerServiceWorker'
 
+import tolltipe from  './directives/tooltipe.directive'
+
 import '../node_modules/materialize-css/dist/js/materialize'
 
 
@@ -19,6 +21,7 @@ Vue.component('Loader', Loader)
 
 import dateFilter from './filters/date.filter'
 Vue.filter('date', dateFilter)
+Vue.directive('tooltipe', tolltipe)
 
 Vue.use(messagePlugin)
 Vue.use(Vuelidate)

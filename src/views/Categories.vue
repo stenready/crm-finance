@@ -10,7 +10,7 @@
       </div>
 
       <div class="col s12 m6" v-if="categories.length">
-        <CategoryUpdate :key="categories.length + number_m" @update_category="update_category" :categories="categories" />
+        <CategoryUpdate :key="categories.length + number_m" @delete_category="delete_cat"  @update_category="update_category" :categories="categories" />
       </div>
     </div>
   </div>
@@ -37,6 +37,10 @@ export default {
   },
   components: { CategoryCreate, CategoryUpdate },
   methods: {
+    delete_cat(id) {
+      console.log(id);
+      this.categories = this.categories.filter( c => c.id !== id )
+    },
     addNewCategory(cat) {
       this.categories.push(cat);
     },

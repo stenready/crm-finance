@@ -4,3 +4,15 @@ $nav_color: #263238;
   margin-left: 0 !important;
   color: red !important;
 }
+
+.page_title_app {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgrey;
+  margin-bottom: 2rem;
+}
+
+.page_title_app .text {
+  font-size: 2rem;
+  font-weight: 500;
+}
