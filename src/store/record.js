@@ -23,7 +23,13 @@ export default {
       }
     },
     async delete_record_by_id({ commit, dispatch }, id) {
-      console.log('object');
+      try {
+        const uid=await dispatch('getUid')
+        const one_record= await firebase.database().ref(`/users/${uid}/records`).child(id).remove()
+      } catch (e) {
+        commit('setError', e)
+        throw e
+      }
     },
     async fetch_record_by_id({ commit, dispatch }, id) {
       try {

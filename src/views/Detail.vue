@@ -41,6 +41,7 @@
                   type="button"
                   class="waves-effect waves-light btn-small"
                   :class="[my_record.button_class]"
+                  @click="remove_record"
                 >Удалить</button>
               </div>
             </div>
@@ -60,7 +61,16 @@ export default {
       loading: true
     };
   },
-  methods: {},
+  methods: {
+   async  remove_record(){
+     try {
+       await this.$store.dispatch('delete_record_by_id', this.my_record.id)
+       this.$router.push('/history')
+     } catch (e) {
+       
+     }
+    }
+  },
   async mounted() {
     try {
       const id = this.$route.params.id;
