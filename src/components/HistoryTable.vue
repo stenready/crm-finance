@@ -16,7 +16,7 @@
         <tr v-for="(el, i) of records"  :key="el.id">
           <td> {{ i + 1 }} </td>
           <td> {{ el.amount }} </td>
-          <td> {{ el.date | date('date') }} </td>
+          <td> {{ el.date | date('datetime') }} </td>
           <td> {{ el.category_name }} </td>
           <td>
             <span class="white-text badge" :class="[el.type_class]"> {{ el.type_text }} </span>

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
+import Paginate from 'vuejs-paginate'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -18,6 +19,7 @@ import 'firebase/database'
 // import 'firebase/analytics'
 
 Vue.component('Loader', Loader)
+Vue.component('Paginate', Paginate)
 
 import dateFilter from './filters/date.filter'
 Vue.filter('date', dateFilter)
