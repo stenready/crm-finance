@@ -5,7 +5,6 @@
     </div>
 
     <div class="history_chart" style="background: aliceblue;" v-show="records.length">
-      <p class="text_graf">график расходов по категориям</p>
       <canvas width="600" height="400" ref="canvas" id="canvas"></canvas>
     </div>
 
@@ -63,7 +62,15 @@ export default {
     //chart js//
     this.renderChart(
       {
-        labels: categories.map(c => c.title),
+        labels: categories.map(c => {
+          const array = []
+           this.records.map( r => {
+            if( r.categoryId === c.id &&   r.type === "outcome"  && r.amount > 0) {
+              array.push(c.title)
+            }
+          } )
+          return array
+        }),
         datasets: [
           {
             label: "Расходы по категориям",
