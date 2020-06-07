@@ -3,7 +3,7 @@
     <div class="left_column col s12 m6 l4">
       <div class="card light-blue">
         <div class="card-content white-text">
-          <span class="card-header">Счёта ( в пересчёте на валюты )</span>
+          <span class="card-header"> {{ 'home_score' | localize }} </span>
           <div class="currency_wrap">
             <span>{{ info.bill }}</span>
             <span>UAH</span>

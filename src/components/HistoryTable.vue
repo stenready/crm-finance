@@ -4,11 +4,11 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Сумма</th>
-          <th>Дата</th>
-          <th>Категория</th>
-          <th>Тип</th>
-          <th>Открыть</th>
+          <th> {{  'amount' | localize }} </th>
+          <th> {{ 'date' | localize }} </th>
+          <th> {{ 'category' | localize }} </th>
+          <th> {{ 'type' | localize }} </th>
+          <th> {{ 'open' | localize }} </th>
         </tr>
       </thead>
 
@@ -19,7 +19,7 @@
           <td> {{ el.date | date('datetime') }} </td>
           <td> {{ el.category_name }} </td>
           <td>
-            <span class="white-text badge" :class="[el.type_class]"> {{ el.type_text }} </span>
+            <span class="white-text badge" :class="[el.type_class]"> {{ el.type_text | localize }} </span>
           </td>
           <td>
             <button class="btn btn-small" @click="$router.push('/detail/' + el.id)">

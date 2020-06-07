@@ -2,14 +2,14 @@
   <div class="right_column col s12 m6 l8">
     <div class="card orange darken-3">
       <div class="card-content white-text">
-        <div class="card-header">Курс валют относительно гривни</div>
+        <div class="card-header"> {{ 'course_currency' | localize }} </div>
         <table>
           <thead>
             <tr>
-              <th>Валюта</th>
-              <th>Могу купить по</th>
-              <th>Могу продать по</th>
-              <th>Дата</th>
+              <th> {{ 'currency' | localize }} </th>
+              <th> {{ 'can_buy' | localize }} </th>
+              <th>{{ 'can_seil' | localize }} </th>
+              <th> {{ 'date' | localize }} </th>
             </tr>
           </thead>
           <tbody>

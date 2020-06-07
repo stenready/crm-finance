@@ -26,14 +26,14 @@
               <li class="drop_element">
                 <router-link to="/profile">
                   <i   class="material-icons">insert_emoticon</i>
-                  <span>Профиль</span>
+                  <span> {{ 'profile' | localize }} </span>
                 </router-link>
               </li>
               <li class="drop_element">
                 <a href="#" @click.prevent="logaut_app">
                   <i class="material-icons">screen_share</i>
 
-                  <span>Выход</span>
+                  <span> {{ 'exit' | localize }} </span>
                 </a>
               </li>
             </ul>

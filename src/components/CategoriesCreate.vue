@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <span class="header_card_categories">Создать Категорию</span>
+    <span class="header_card_categories"> {{ 'create_category' | localize }} </span>
     <div class="card-content">
       <form @submit.prevent="category_handler">
         <div class="input-field">
@@ -10,11 +10,11 @@
             type="text"
             v-model="desc"
           />
-          <label for="title_categories_add">Введите название категории</label>
+          <label for="title_categories_add">{{'Введите название категории' | localize}}</label>
           <small
             class="helper-text invalid_msg_class"
             v-if="($v.desc.$dirty && !$v.desc.required)"
-          >Поле не может быть пустым</small>
+          >{{'Поле не может быть пустым' | localize}}</small>
         </div>
         <div class="input-field">
           <input
@@ -23,21 +23,21 @@
             type="number"
             v-model.number="limit"
           />
-          <label for="number_categories_add">Лимит на данную категорию</label>
+          <label for="number_categories_add">{{'Лимит на данную категорию' | localize}}</label>
           <small
             class="helper-text invalid_msg_class"
             v-if="($v.limit.$dirty && !$v.limit.required)"
-          >Поле не может быть пустым</small>
+          >{{'Поле не может быть пустым' | localize}}</small>
           <small
             class="helper-text invalid_msg_class"
             v-if="($v.limit.$dirty && !$v.limit.minValue)"
-          >минимальное значение 1</small>
+          >{{'Не должно быть меньше чем 1' | localize}}</small>
         </div>
         <button
           style="width: 100%;"
           type="submit"
           class="waves-effect waves-light btn-small"
-        >Создать категорию</button>
+        >{{'Создать категорию' | localize}}</button>
       </form>
     </div>
   </div>

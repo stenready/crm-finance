@@ -1,7 +1,7 @@
 <template>
   <div class="history">
     <div class="page_title_app">
-      <span class="text">История записей</span>
+      <span class="text"> {{ 'history' | localize }} </span>
     </div>
 
     <div class="history_chart" style="background: aliceblue;" v-show="records.length">
@@ -21,8 +21,8 @@
           v-model="page"
           :page-count="pageCount"
           :click-handler="pageChangeHandler"
-          :prev-text="'Назад'"
-          :next-text="'Вперёд'"
+          :prev-text="info.locale === 'ru-Ru' ? 'Назад' : 'Last' "
+          :next-text="info.locale === 'ru-Ru' ? 'Вперёд' : 'Next'"
           :container-class="'pagination'"
           :page-class="'waves-effect'"
         >></Paginate>
@@ -34,7 +34,8 @@
 <script>
 import HistoryTable from "@/components/HistoryTable";
 import PaginationMixin from "../mixins/pagination.mixins";
-import { Bar} from "vue-chartjs";
+import {mapGetters} from 'vuex'
+import { Bar } from "vue-chartjs";
 export default {
   name: "history",
   extends: Bar,
@@ -45,11 +46,15 @@ export default {
       records: []
     };
   },
+  computed: {
+    ...mapGetters(['info'])
+  },
   async mounted() {
     const categories = await this.$store.dispatch("fetch_all_categories");
     this.records = await this.$store.dispatch("fetch_all_records");
     ///////
     this.setupPagination(
+      //mixin function
       this.records.map(record => {
         return {
           ...record,
@@ -63,17 +68,17 @@ export default {
     this.renderChart(
       {
         labels: categories.map(c => {
-          const array = []
-           this.records.map( r => {
-            if( r.categoryId === c.id &&   r.type === "outcome"  && r.amount > 0) {
-              array.push(c.title)
+          const array = [];
+          this.records.map(r => {
+            if (r.categoryId === c.id && r.type === "outcome" && r.amount > 0) {
+              array.push(c.title);
             }
-          } )
-          return array
+          });
+          return array;
         }),
         datasets: [
           {
-            label: "Расходы по категориям",
+            label: this.info.locale === 'ru-Ru' ? 'Расходы по категориям' : 'Outcome at categories', 
             data: categories.map(c => {
               return this.records.reduce((total, r) => {
                 if (r.categoryId === c.id && r.type === "outcome") {

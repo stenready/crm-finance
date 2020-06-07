@@ -1,7 +1,7 @@
 <template>
   <div class="categories_update">
     <div class="card">
-      <span class="header_card_categories">Редактировать категорию</span>
+      <span class="header_card_categories">{{'Редактировать категорию' | localize}}</span>
       <div class="card-content">
         <form @submit.prevent="updateCategoryHandler">
           <div class="input-field">
@@ -12,7 +12,7 @@
                 :key="i + `string`"
               >{{ cat.title}}</option>
             </select>
-            <label>Materialize Select</label>
+            <label>{{ 'Выберите категорию для редактирования' | localize }}</label>
           </div>
 
           <div class="input-field">
@@ -22,7 +22,7 @@
               type="text"
               v-model="desc"
             />
-            <label for="title_categories_update">Введите название категории</label>
+            <label for="title_categories_update">{{ 'Новое название для категории' | localize }}</label>
             <small
               class="helper-text invalid_msg_class"
               v-if="($v.desc.$dirty && !$v.desc.required)"
@@ -36,28 +36,28 @@
               type="number"
               v-model.number="limit"
             />
-            <label for="number_categories_update">Лимит на данную категорию</label>
+            <label for="number_categories_update">{{ 'Новый лимит категории' | localize }}</label>
             <small
               class="helper-text invalid_msg_class"
               v-if="($v.limit.$dirty && !$v.limit.required)"
-            >Поле не может быть пустым</small>
+            >{{'Поле не может быть пустым' | localize}}</small>
             <small
               class="helper-text invalid_msg_class"
               v-if="($v.limit.$dirty && !$v.limit.minValue)"
-            >минимальное значение 1</small>
+            >{{ 'Не должно быть меньше чем 1' | localize }}</small>
           </div>
 
           <button
             style="margin-right: 1rem"
             type="submit"
             class="waves-effect waves-light btn-small"
-          >Изменить</button>
+          >{{ 'update' | localize }}</button>
           <button
-            v-tooltipe=" `удаление категории и всех связанных с ней записей` "
+            v-tooltipe=" info.locale === 'ru-Ru' ? 'удаление категории и всех связанных с ней записей' : 'Deleting a category and all related entries' "
             @click="delete_category"
             type="button"
             class="waves-effect waves-light btn-small"
-          >Удалить</button>
+          >{{ 'deletex' | localize }}</button>
         </form>
       </div>
     </div>
@@ -66,8 +66,12 @@
 
 <script>
 import { required, minValue } from "vuelidate/lib/validators";
+import { mapGetters } from "vuex";
 export default {
   name: "CategoriesUpdate",
+  computed: {
+    ...mapGetters(["info"])
+  },
   props: {
     categories: { type: Array, required: true }
   },
@@ -91,9 +95,11 @@ export default {
     }
   },
   methods: {
-    async delete_category(){
-      const res = await this.$store.dispatch('delete_category', {id: this.current})
-      this.$emit('delete_category', this.current)
+    async delete_category() {
+      const res = await this.$store.dispatch("delete_category", {
+        id: this.current
+      });
+      this.$emit("delete_category", this.current);
     },
     async updateCategoryHandler() {
       if (!!this.$v.$invalid) {
@@ -102,10 +108,10 @@ export default {
       }
 
       try {
-        const data = { id: this.current, title: this.desc, limit: this.limit }
-        await this.$store.dispatch('update_category', data)
+        const data = { id: this.current, title: this.desc, limit: this.limit };
+        await this.$store.dispatch("update_category", data);
         this.$message("Категория обновлена!", 2000);
-        this.$emit('update_category', data)
+        this.$emit("update_category", data);
       } catch (e) {}
     }
   },

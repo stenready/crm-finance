@@ -1,7 +1,7 @@
 <template>
   <div class="mein-layout">
     <NavBar @open_close_click="showNavBar = !showNavBar" />
-    <SideBar v-model="showNavBar" />
+    <SideBar v-model="showNavBar" :key="info.locale" />
 
     <main class="home-container">
       <div class="app-content">

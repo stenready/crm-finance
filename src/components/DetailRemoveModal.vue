@@ -2,12 +2,12 @@
   <div>
     <div  class="modal" :id="modal_details.id">
       <div class="modal-content">
-        <h4> {{ modal_details.title }} </h4>
-        <p> {{ modal_details.text }} </p>
+        <h4> {{ 'deletex' | localize }} </h4>
+        <p> {{ 'message_delete' | localize }} </p>
       </div>
       <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn" style="margin-right: 1rem;">Отмена</a>
-        <a href="#!" class="modal-close waves-effect waves-green btn" @click.prevent="$emit('delete_elem')">Удалить</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn" style="margin-right: 1rem;"> {{ 'cansel' | localize }} </a>
+        <a href="#!" class="modal-close waves-effect waves-green btn" @click.prevent="$emit('delete_elem')"> {{ 'deletex' | localize }} </a>
       </div>
     </div>
   </div>

@@ -4,13 +4,19 @@ import Paginate from 'vuejs-paginate'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import messagePlugin from './utils/message.plugin'
-import Loader from './components/app/Loader.vue'
 import './registerServiceWorker'
+
+import '../node_modules/materialize-css/dist/js/materialize'
+
+import messagePlugin from './utils/message.plugin'
+
+import localize  from './filters/localize.filter'
+
+import Loader from './components/app/Loader.vue'
 
 import tolltipe from  './directives/tooltipe.directive'
 
-import '../node_modules/materialize-css/dist/js/materialize'
+
 
 
 import firebase from 'firebase/app'
@@ -22,7 +28,10 @@ Vue.component('Loader', Loader)
 Vue.component('Paginate', Paginate)
 
 import dateFilter from './filters/date.filter'
+
 Vue.filter('date', dateFilter)
+Vue.filter('localize', localize)
+
 Vue.directive('tooltipe', tolltipe)
 
 Vue.use(messagePlugin)

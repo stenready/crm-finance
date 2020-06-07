@@ -1,14 +1,14 @@
 <template>
   <div class="record">
     <div class="page_title_app">
-      <span class="text">Записи</span>
+      <span class="text"> {{ 'record' | localize }} </span>
     </div>
 
     <Loader v-if="loading" />
 
     <p v-else-if="ctegories.length === 0">
-      Для того чтобы создать запись нужно прикрепить её к категории, а у вас нет ни одной категории. Содайте её
-      <router-link to="/categories">тут</router-link>
+      {{ 'bad_record' | localize }}
+      <router-link to="/categories"> {{ 'here' | localize}} </router-link>
     </p>
 
     <div class="row" v-else>
@@ -19,19 +19,19 @@
               <select v-model="category">
                 <option v-for="el of ctegories" :key="el.id" :value="el.id">{{ el.title }}</option>
               </select>
-              <label>Выбор нужой категории</label>
+              <label> {{ 'record_ented_select_category' | localize }} </label>
             </div>
 
             <p>
               <label>
                 <input v-model="type_oper" value="income" type="radio" />
-                <span>Доход</span>
+                <span> {{ 'Доход' | localize }} </span>
               </label>
             </p>
             <p>
               <label>
                 <input v-model="type_oper" value="outcome" type="radio" />
-                <span>Расход</span>
+                <span> {{ 'Расход' | localize }} </span>
               </label>
             </p>
 
@@ -42,15 +42,15 @@
                 type="number"
                 v-model.number="amount"
               />
-              <label for="title_categories_update">Сумма</label>
+              <label for="title_categories_update"> {{ 'amount' | localize }} </label>
               <small
                 class="helper-text invalid_msg_class"
                 v-if="($v.amount.$dirty && !$v.amount.required)"
-              >Обязательное поле</small>
+              >{{ 'Поле не может быть пустым' | localize }}</small>
               <small
                 class="helper-text invalid_msg_class"
                 v-if="($v.amount.$dirty && !$v.amount.minValue)"
-              >Не должно быть меньше чем 1</small>
+              >{{'Не должно быть меньше чем 1' | localize}}</small>
             </div>
 
             <div class="input-field">
@@ -60,14 +60,14 @@
                 type="text"
                 v-model="description"
               />
-              <label for="title_categories_update">Описание</label>
+              <label for="title_categories_update"> {{ 'Description' | localize }} </label>
               <small
                 v-if="($v.description.$dirty && !$v.description.required)"
                 class="helper-text invalid_msg_class"
-              >Поле не может быть пустым</small>
+              > {{ 'Поле не может быть пустым' | localize }} </small>
             </div>
 
-            <button type="submit" class="waves-effect waves-light btn-small">Добавить</button>
+            <button type="submit" class="waves-effect waves-light btn-small"> {{ 'add' | localize }} </button>
           </form>
         </div>
       </div>

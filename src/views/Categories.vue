@@ -1,7 +1,7 @@
 <template>
   <div class="categories">
     <div class="page_title_app">
-      <span class="text">Категории</span>
+      <span class="text">{{ 'category' | localize }} </span>
     </div>
     <Loader v-if="loading" />
     <div class="row" v-else>

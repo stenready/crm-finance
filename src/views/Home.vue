@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="page_title_app">
-      <span class="text">Счет</span>
+      <span class="text"> {{ 'score' | localize }} </span>
       <button class="btn my_button waves-effect waves-light" @click="refresh">
         <i class="large material-icons">autorenew</i>
       </button>
