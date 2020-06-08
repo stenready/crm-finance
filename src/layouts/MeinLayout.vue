@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       showNavBar: true,
-      close_sidebar_on_click: false
+      close_sidebar_on_click: +window.innerWidth <  576 ? true : false
     };
   },
   computed: {
