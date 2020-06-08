@@ -1,28 +1,31 @@
 <template>
   <div id="app">
     <component :is="layout">
-      <router-view/>
+      <router-view />
     </component>
   </div>
 </template>
 
 <script>
-import AuthLayout from './layouts/AuthLayout';
-import MeinLayout from './layouts/MeinLayout';
+import AuthLayout from "./layouts/AuthLayout";
+import MeinLayout from "./layouts/MeinLayout";
+
 export default {
   computed: {
     layout() {
-      return (this.$route.meta.layout || 'auth') + '-layout'
+      return (this.$route.meta.layout || "auth") + "-layout";
     }
+  },
+  mounted() {
   },
   components: {
     AuthLayout,
     MeinLayout
   }
-}
+};
 </script>
 
 <style lang="scss">
-  @import '../node_modules/materialize-css/dist/css/materialize.min.css';
-  @import './sass/index.scss';
+@import "../node_modules/materialize-css/dist/css/materialize.min.css";
+@import "./sass/index.scss";
 </style>

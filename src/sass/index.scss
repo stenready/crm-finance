@@ -16,3 +16,18 @@ $nav_color: #263238;
   font-size: 2rem;
   font-weight: 500;
 }
+@media screen and (max-width: 576px) {
+  .page_title_app {
+    padding: 0 1rem;
+  }
+  .card-content{
+    padding: 0.4rem !important;
+  }
+  .app-page.full {
+    padding-right: 0;
+  }
+  .planning{
+    padding: 0 0.5rem;
+  }
+
+}

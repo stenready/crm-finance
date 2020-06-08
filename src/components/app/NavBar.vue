@@ -4,9 +4,9 @@
       <div class="nav-wrapper">
         <div class="navbar-left">
           <a href="#" class="brand-logo" @click.prevent="$emit('open_close_click')">
-            <i class="material-icons" >dehaze</i>
+            <i class="material-icons">dehaze</i>
           </a>
-          <span style="padding-left: 3rem;">{{ my_date | date('datetime')}}</span>
+          <span class="time" style="padding-left: 3rem;">{{ my_date | date('datetime')}}</span>
         </div>
         <!-- right -->
         <ul id="nav-mobile" class="right">
@@ -16,24 +16,23 @@
               id="dropdown_triger"
               class="dropdown-trigger dropdown_custom"
               data-target="dropdown1"
-              
             >
-              <span class="name_dropdown" style="text-transform: uppercase;"> {{ info.name }} </span>
-              <i ref="icon_user"  class="large material-icons user_name_icon">expand_more</i>
+              <span class="name_dropdown" style="text-transform: uppercase;">{{ info.name }}</span>
+              <i ref="icon_user" class="large material-icons user_name_icon">expand_more</i>
             </a>
 
             <ul id="dropdown1" style="min-width:150px;" class="dropdown-content">
               <li class="drop_element">
                 <router-link to="/profile">
-                  <i   class="material-icons">insert_emoticon</i>
-                  <span> {{ 'profile' | localize }} </span>
+                  <i class="material-icons">insert_emoticon</i>
+                  <span>{{ 'profile' | localize }}</span>
                 </router-link>
               </li>
               <li class="drop_element">
                 <a href="#" @click.prevent="logaut_app">
                   <i class="material-icons">screen_share</i>
 
-                  <span> {{ 'exit' | localize }} </span>
+                  <span>{{ 'exit' | localize }}</span>
                 </a>
               </li>
             </ul>
@@ -48,7 +47,7 @@
 import { mapActions, mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(['info'])
+    ...mapGetters(["info"])
   },
   data() {
     return {
@@ -137,6 +136,15 @@ export default {
   @media screen and (max-width: 992px) {
     .brand-logo {
       left: 3rem;
+    }
+  }
+  @media all and (max-width: 576px) {
+    .time {
+      display: none;
+    }
+    .brand-logo{
+      transform: translateY(-30px);
+      left: 2rem;
     }
   }
 }

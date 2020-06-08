@@ -10,12 +10,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    error: null
+    error: null,
+    showNavBar: true
   },
   getters: {
-    error: s => s.error
+    error: s => s.error,
+    navBar: s => s.showNavBar
   },
   mutations: {
+    setNavBar(state, payload) {
+      state.showNavBar = payload
+    },
     setError(state, error) {
       state.error=error
     },

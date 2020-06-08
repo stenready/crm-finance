@@ -1,20 +1,34 @@
 <template>
-  <div class="mein-layout">
-    <NavBar @open_close_click="showNavBar = !showNavBar" />
-    <SideBar v-model="showNavBar" :key="info.locale" />
+  <div class="super_root">
+    <div class="mein-layout">
+      <NavBar @open_close_click="showNavBar = !showNavBar" />
+      <SideBar
+        v-model="showNavBar"
+        :key="info.locale"
+      />
 
-    <main class="home-container">
-      <div class="app-content">
-        <div class="app-page" style="padding-right: 2rem;" :class="{full: !!showNavBar}">
-          <router-view />
+      <main class="home-container">
+        <div class="app-content">
+          <div
+            @click="show_sidebar_mini_screen"
+            class="app-page"
+            style="padding-right: 2rem;"
+            :class="{full: !!showNavBar}"
+          >
+            <router-view />
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
 
-    <div class="fixed-action-btn">
-      <router-link class="btn-floating btn-large waves-effect waves-light red" tag="a" to="/record">
-        <i class="material-icons">add</i>
-      </router-link>
+      <div class="fixed-action-btn">
+        <router-link
+          class="btn-floating btn-large waves-effect waves-light red"
+          tag="a"
+          to="/record"
+        >
+          <i class="material-icons">add</i>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +42,8 @@ export default {
   name: "mein-layout",
   data() {
     return {
-      showNavBar: true
+      showNavBar: true,
+      close_sidebar_on_click: false
     };
   },
   computed: {
@@ -38,21 +53,47 @@ export default {
     error(e) {
       console.log(e);
       this.$error(messages[e.code] || "что-то пошло не так");
+    },
+    close_sidebar_on_click(e) {
+      if (e) return true;
+      return false;
     }
   },
   methods: {
-    ...mapActions(["fetchInformation"])
+    ...mapActions(["fetchInformation"]),
+
+    onResize(event) {
+      if (+window.innerWidth < 576) {
+        this.close_sidebar_on_click = true;
+      } else {
+        this.close_sidebar_on_click = false;
+      }
+    },
+    show_sidebar_mini_screen() {
+      if (this.close_sidebar_on_click) {
+        return (this.showNavBar = true);
+      }
+      return;
+    }
   },
   mounted() {
+    window.addEventListener("resize", this.onResize);
     this.fetchInformation()
       .then(() => {})
       .catch(() => {});
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize);
   },
   components: { NavBar, SideBar }
 };
 </script>
 
 <style lang="scss">
+.home-container {
+  width: 100%;
+  height: 100%;
+}
 .mein-layout {
   .app-content {
     padding-top: 2rem;
@@ -70,11 +111,15 @@ export default {
       transition: width 0.5s ease-in !important;
     }
   }
-  @media screen and (max-width: 576px) {
+  @media all and (max-width: 576px) {
     .app-content {
+      width: 100% !important;
       .app-page {
         width: 97% !important;
         margin: 0 auto !important;
+      }
+      .app-page.full {
+        padding: 0 !important;
       }
     }
   }
