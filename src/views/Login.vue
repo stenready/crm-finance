@@ -74,6 +74,11 @@ import keys from "@/utils/message.keys";
 import { mapActions } from "vuex";
 export default {
   name: "login",
+  metaInfo() {
+    return {
+      title: 'Логин'
+    };
+  },
   data() {
     return {
       login_email: "",
@@ -106,7 +111,7 @@ export default {
     if (this.$route.query.message) {
       console.log(keys[this.$route.query.message]);
       this.$message(keys[this.$route.query.message], 1500);
-      return
+      return;
     }
   }
 };

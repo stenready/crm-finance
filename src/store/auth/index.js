@@ -20,7 +20,7 @@ export default {
         await firebase.database().ref(`/users/${uid}/info`).set({
           bill: 1000,
           name,
-          locale: 'ru-RU'
+          locale: 'ru-Ru'
         })
 
       } catch (err) {

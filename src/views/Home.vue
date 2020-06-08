@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="page_title_app">
-      <span class="text"> {{ 'score' | localize }} </span>
+      <span class="text">{{ 'score' | localize }}</span>
       <button class="btn my_button waves-effect waves-light" @click="refresh">
         <i class="large material-icons">autorenew</i>
       </button>
@@ -24,6 +24,11 @@ import HomeCurency from "@/components/HomeCurrency";
 import { mapActions } from "vuex";
 export default {
   name: "Home",
+  metaInfo() {
+    return {
+      title: this.$title("score")
+    };
+  },
   methods: {
     ...mapActions(["fetch_currency"]),
     async refresh() {

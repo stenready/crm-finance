@@ -1,7 +1,7 @@
 <template>
   <div class="categories">
     <div class="page_title_app">
-      <span class="text">{{ 'category' | localize }} </span>
+      <span class="text">{{ 'category' | localize }}</span>
     </div>
     <Loader v-if="loading" />
     <div class="row" v-else>
@@ -10,7 +10,12 @@
       </div>
 
       <div class="col s12 m6" v-if="categories.length">
-        <CategoryUpdate :key="categories.length + number_m" @delete_category="delete_cat"  @update_category="update_category" :categories="categories" />
+        <CategoryUpdate
+          :key="categories.length + number_m"
+          @delete_category="delete_cat"
+          @update_category="update_category"
+          :categories="categories"
+        />
       </div>
     </div>
   </div>
@@ -21,6 +26,11 @@ import CategoryCreate from "../components/CategoriesCreate";
 import CategoryUpdate from "../components/CategoriesUpdate";
 export default {
   name: "Category",
+  metaInfo() {
+    return {
+      title: this.$title("categories")
+    };
+  },
   async mounted() {
     try {
       this.categories = await this.$store.dispatch("fetch_all_categories");
@@ -39,7 +49,7 @@ export default {
   methods: {
     delete_cat(id) {
       console.log(id);
-      this.categories = this.categories.filter( c => c.id !== id )
+      this.categories = this.categories.filter(c => c.id !== id);
     },
     addNewCategory(cat) {
       this.categories.push(cat);
@@ -48,7 +58,7 @@ export default {
       const idx = this.categories.findIndex(c => c.id === val.id);
       this.categories[idx].title = val.title;
       this.categories[idx].limit = val.limit;
-      this.number_m++
+      this.number_m++;
     }
   }
 };

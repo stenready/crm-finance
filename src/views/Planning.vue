@@ -4,13 +4,13 @@
 
     <p v-else-if="categories.length === 0">
       {{ 'planning_bad' | localize }}
-      <router-link to="/categories"> {{ 'here' | localize }} </router-link>
+      <router-link to="/categories">{{ 'here' | localize }}</router-link>
     </p>
 
     <div class="wrap" v-else>
       <div class="page_title_app" style="align-items: center;">
-        <span class="text"> {{ 'planning' | localize }} </span>
-        <span style="font-weight: 700;"> {{ 'balance' | localize }} : {{ info.bill }} UAH</span>
+        <span class="text">{{ 'planning' | localize }}</span>
+        <span style="font-weight: 700;">{{ 'balance' | localize }} : {{ info.bill }} UAH</span>
       </div>
 
       <div class="wrap_planning" v-tooltipe="cat.tooltipe" v-for="cat of categories" :key="cat.id">
@@ -21,7 +21,7 @@
               <span
                 class="spend"
                 style="font-size: 1.2rem;"
-              > {{ 'spent' | localize }}: {{ cat.spend }} UAH {{ 'of' | localize }} {{ cat.limit }} UAH</span>
+              >{{ 'spent' | localize }}: {{ cat.spend }} UAH {{ 'of' | localize }} {{ cat.limit }} UAH</span>
             </span>
           </div>
           <div class="progress">
@@ -41,6 +41,11 @@
 import { mapGetters } from "vuex";
 export default {
   name: "planing",
+  metaInfo() {
+    return {
+      title: this.$title("planning")
+    };
+  },
   data() {
     return {
       loading: true,
@@ -49,11 +54,15 @@ export default {
   },
   computed: {
     ...mapGetters(["info"]),
-    message_tooltipe_localize_bad(){
-      return this.info.locale === 'ru-Ru' ? 'Вы потратили больше чем нужно. Дифицит категории =' : 'You have spent more than necessary. Category deficit'
+    message_tooltipe_localize_bad() {
+      return this.info.locale === "ru-Ru"
+        ? "Вы потратили больше чем нужно. Дифицит категории ="
+        : "You have spent more than necessary. Category deficit";
     },
     message_tooltipe_localize_good() {
-      return this.info.locale === 'ru-Ru' ? 'Вы можете потратить еще ' : 'You can spend more'
+      return this.info.locale === "ru-Ru"
+        ? "Вы можете потратить еще "
+        : "You can spend more";
     }
   },
   async mounted() {

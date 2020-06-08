@@ -103,7 +103,12 @@
 import { required, minLength, email } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 export default {
-  name: "login",
+  name: "register",
+  metaInfo() {
+    return {
+      title: "Регистрация"
+    };
+  },
   data() {
     return {
       register_email: "",
@@ -128,7 +133,7 @@ export default {
       const data = {
         email: this.register_email,
         password: this.register_password,
-        name: this.register_name
+        name: this.register_name,
       };
       this.register(data)
         .then(() => {
@@ -136,7 +141,7 @@ export default {
         })
         .catch(err => {});
     }
-  },
+  }
 };
 </script>
 

@@ -3,10 +3,10 @@
     <Loader v-if="loading" />
 
     <div v-else>
-      <ModalRemove :modal_details="modal_details" @delete_elem="remove_record"  />
+      <ModalRemove :modal_details="modal_details" @delete_elem="remove_record" />
       <div class="nav-wrapper">
         <div>
-          <router-link tag="a" to="/history" class="breadcrumb"> {{ 'history' | localize }} </router-link>
+          <router-link tag="a" to="/history" class="breadcrumb">{{ 'history' | localize }}</router-link>
           <a
             href="#!"
             class="breadcrumb"
@@ -19,31 +19,31 @@
           <div class="card" :class="[my_record.card_class]">
             <div class="card-content white-text">
               <p>
-                <span class="title_detail">  {{ 'Description' | localize }} </span>
+                <span class="title_detail">{{ 'Description' | localize }}</span>
                 <span class="body_detail">{{ my_record.description }}</span>
               </p>
               <p>
-                <span class="title_detail"> {{ 'amount' | localize }} </span>
+                <span class="title_detail">{{ 'amount' | localize }}</span>
                 <span class="body_detail">{{ my_record.amount }} UAH</span>
               </p>
               <p>
-                <span class="title_detail"> {{ 'category' | localize }} </span>
+                <span class="title_detail">{{ 'category' | localize }}</span>
                 <span class="body_detail">{{ my_record.category }}</span>
               </p>
               <small style="font-weight: 500">{{ my_record.date | date('date') }}</small>
               <div style="margin-top: 1.5rem;">
-                <button
+                <!-- <button
                   style="margin-right: 1rem"
                   type="button"
                   class="waves-effect waves-light btn-small"
                   :class="[my_record.button_class]"
-                > {{ 'update' | localize }} </button>
+                >{{ 'update' | localize }}</button> -->
                 <button
                   type="button"
                   :data-target="modal_details.id"
                   class="waves-effect waves-light btn-small modal-trigger"
                   :class="[my_record.button_class]"
-                > {{ 'deletex' | localize }} </button>
+                >{{ 'deletex' | localize }}</button>
               </div>
             </div>
           </div>
@@ -57,15 +57,20 @@
 import ModalRemove from "../components/DetailRemoveModal";
 export default {
   name: "one_detail",
+  metaInfo() {
+    return {
+      title: this.$title("one_page")
+    };
+  },
   data() {
     return {
       my_record: null,
       loading: true,
       modal_details: {
-        id: (new Date()).toString(),
-        title: 'Удаление',
-        text: 'Вы уверенны что хотите удалить данный елемент?'
-      },
+        id: new Date().toString(),
+        title: "Удаление",
+        text: "Вы уверенны что хотите удалить данный елемент?"
+      }
     };
   },
   methods: {

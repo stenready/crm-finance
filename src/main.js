@@ -1,20 +1,33 @@
 import Vue from 'vue'
+
 import Vuelidate from 'vuelidate'
+
+import VueMeta from 'vue-meta'
+
 import Paginate from 'vuejs-paginate'
+
 import App from './App.vue'
+
 import router from './router'
+
 import store from './store'
+
 import './registerServiceWorker'
 
 import '../node_modules/materialize-css/dist/js/materialize'
 
 import messagePlugin from './utils/message.plugin'
 
+import titlePlugin from './utils/title.plugin'
+
 import localize  from './filters/localize.filter'
+
+import dateFilter from './filters/date.filter'
 
 import Loader from './components/app/Loader.vue'
 
 import tolltipe from  './directives/tooltipe.directive'
+
 
 
 
@@ -27,7 +40,7 @@ import 'firebase/database'
 Vue.component('Loader', Loader)
 Vue.component('Paginate', Paginate)
 
-import dateFilter from './filters/date.filter'
+
 
 Vue.filter('date', dateFilter)
 Vue.filter('localize', localize)
@@ -35,7 +48,9 @@ Vue.filter('localize', localize)
 Vue.directive('tooltipe', tolltipe)
 
 Vue.use(messagePlugin)
+Vue.use(titlePlugin)
 Vue.use(Vuelidate)
+Vue.use(VueMeta)
 
 const firebaseConfig={
   apiKey: "AIzaSyAFdarP1DxHrbgHY6loG0TQIbcl8GaRHaA",

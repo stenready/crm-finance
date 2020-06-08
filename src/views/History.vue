@@ -1,7 +1,7 @@
 <template>
   <div class="history">
     <div class="page_title_app">
-      <span class="text"> {{ 'history' | localize }} </span>
+      <span class="text">{{ 'history' | localize }}</span>
     </div>
 
     <div class="history_chart" style="background: aliceblue;" v-show="records.length">
@@ -34,10 +34,15 @@
 <script>
 import HistoryTable from "@/components/HistoryTable";
 import PaginationMixin from "../mixins/pagination.mixins";
-import {mapGetters} from 'vuex'
+import { mapGetters } from "vuex";
 import { Bar } from "vue-chartjs";
 export default {
   name: "history",
+  metaInfo() {
+    return {
+      title: this.$title("history")
+    };
+  },
   extends: Bar,
   mixins: [PaginationMixin],
   data() {
@@ -47,7 +52,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['info'])
+    ...mapGetters(["info"])
   },
   async mounted() {
     const categories = await this.$store.dispatch("fetch_all_categories");
@@ -78,7 +83,10 @@ export default {
         }),
         datasets: [
           {
-            label: this.info.locale === 'ru-Ru' ? 'Расходы по категориям' : 'Outcome at categories', 
+            label:
+              this.info.locale === "ru-Ru"
+                ? "Расходы по категориям"
+                : "Outcome at categories",
             data: categories.map(c => {
               return this.records.reduce((total, r) => {
                 if (r.categoryId === c.id && r.type === "outcome") {
